@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_top_rated.*
 
 class NowPlayingFragment : Fragment() ,OnItemClickListener{
 
+    private var nowPlayingRecyclerViewAdapter: NowPlayingAdapter? = null
     private var nowPlayingDataSource: List<MovieResultsItem>? = null
     private val nowPlayViewModel by lazy {
         ViewModelProviders.of(this).get(NowPlayingViewModel::class.java)
@@ -42,8 +43,10 @@ class NowPlayingFragment : Fragment() ,OnItemClickListener{
         (activity as MainActivity).showBottomSheet()
 
         setHasOptionsMenu(true)
-        
+
         nowPlayingRecyclerView.layoutManager = LinearLayoutManager(this.context)
+        nowPlayingRecyclerViewAdapter = NowPlayingAdapter(null, this)
+        nowPlayingRecyclerView.adapter = nowPlayingRecyclerViewAdapter
 
         observeViewModel()
         nowPlayViewModel.getNowPlayData()
@@ -96,7 +99,7 @@ class NowPlayingFragment : Fragment() ,OnItemClickListener{
     private fun handleSuccess(dataSource: List<MovieResultsItem>) {
         errorNowPlayTextView.visibility=View.GONE
         nowPlayingRecyclerView.visibility=View.VISIBLE
-        nowPlayingRecyclerView.adapter=NowPlayingAdapter(dataSource,this)
+        nowPlayingRecyclerViewAdapter?.updateData(dataSource)
     }
     private  fun handleError() {
         errorNowPlayTextView.visibility=View.VISIBLE

@@ -15,11 +15,13 @@ import com.example.movie.common.OnItemClickListener
 import com.example.movie.entity.model.data.movie.MovieResultsItem
 import com.example.movie.entity.model.sealed.Results
 import com.example.movie.ui.MainActivity
+import com.example.movie.ui.upcoming.UpComingAdapter
 import kotlinx.android.synthetic.main.fragment_top_rated.*
 import kotlinx.android.synthetic.main.fragment_upcoming.*
 
 class TopRatedFragment : Fragment(), OnItemClickListener {
 
+    private var topRatedRecyclerViewAdapter: TopRatedAdapter? = null
     private var topRatedDataSource: List<MovieResultsItem>? = null
     private val topViewModel by lazy {
         ViewModelProviders.of(this).get(TopRatedViewModel::class.java)
@@ -38,6 +40,11 @@ class TopRatedFragment : Fragment(), OnItemClickListener {
         setHasOptionsMenu(true)
 
         topRatedRecyclerView.layoutManager = LinearLayoutManager(this.context)
+        topRatedRecyclerViewAdapter = TopRatedAdapter(null, this)
+        topRatedRecyclerView.adapter = topRatedRecyclerViewAdapter
+
+
+
         observeViewModel()
         topViewModel.getTopRatedListData()
         searchData()
@@ -61,7 +68,7 @@ class TopRatedFragment : Fragment(), OnItemClickListener {
                 before: Int, count: Int
             ) {
                 if (topRatedSearchEditText.text.isNullOrEmpty()) {
-                    topViewModel.getTopRatedLiveData()
+                    topViewModel.getTopRatedListData()
                 } else {
                     topViewModel.getSearchTopRatedListData(topRatedSearchEditText.text.toString())
 
@@ -91,7 +98,7 @@ class TopRatedFragment : Fragment(), OnItemClickListener {
     private  fun handleSuccess(dataSource: List<MovieResultsItem>?) {
         errorTopRatedTextView.visibility=View.GONE
         topRatedRecyclerView.visibility=View.VISIBLE
-        topRatedRecyclerView.adapter = TopRatedAdapter(dataSource!!, this)
+        topRatedRecyclerViewAdapter?.updateData(dataSource)
     }
     private  fun handleError() {
         errorTopRatedTextView.visibility=View.VISIBLE

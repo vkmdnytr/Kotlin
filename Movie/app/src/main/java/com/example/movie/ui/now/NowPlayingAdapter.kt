@@ -15,7 +15,7 @@ import com.example.movie.entity.model.data.movie.MovieResultsItem
 import com.example.movie.entity.rest.Urls
 
 
-class NowPlayingAdapter(private var mDataSource: List<MovieResultsItem>,private var onListener: OnItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NowPlayingAdapter(private var mDataSource: List<MovieResultsItem>?,private var onListener: OnItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return position
@@ -25,14 +25,20 @@ class NowPlayingAdapter(private var mDataSource: List<MovieResultsItem>,private 
         return NowPlayViewHolder(v)
 
     }
+    fun updateData(dataSource: List<MovieResultsItem>?){
+        this.mDataSource = dataSource
+        notifyDataSetChanged()
+    }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
                 val mockItemViewHolder = holder as NowPlayViewHolder
-                val mockItem = mDataSource.get(position)
-        mockItemViewHolder.subTitle.text=mockItem.overview
-        mockItemViewHolder.title.text=mockItem.title
-        mockItemViewHolder.textReleaseDate.text=mockItem.release_date
-        mockItemViewHolder.textRate.text=(mockItem.vote_average/2).toString()
-        mockItemViewHolder.rate.rating=mockItem.vote_average/2
+                val mockItem = mDataSource?.get(position)
+        mockItemViewHolder.subTitle.text=mockItem?.overview
+        mockItemViewHolder.title.text=mockItem?.title
+        mockItemViewHolder.textReleaseDate.text=mockItem?.release_date
+        mockItem?.let {
+            mockItemViewHolder.textRate.text=mockItem.vote_average.div(2).toString()
+            mockItemViewHolder.rate.rating= mockItem.vote_average.div(2)
+        }
         val url = if (Urls.IMAGE_URL != null) "${Urls.IMAGE_URL}${mockItem?.poster_path}" else null
         Glide.with(mockItemViewHolder.movieImageView.context)  //2
             .load(url)
