@@ -1,0 +1,83 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "29.0.0"
+    defaultConfig {
+        applicationId "com.example.movie"
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    android {
+        testOptions {
+            unitTests.returnDefaultValues = true
+        }
+    }
+    // Specifies one flavor dimension.
+    flavorDimensions "version"
+    productFlavors {
+        production {
+            dimension = "version"
+            buildConfigField 'String', 'MOVIE_BASE_URL', '"https://api.themoviedb.org/3/"'
+        }
+        internal {
+            dimension = "version"
+            buildConfigField 'String', 'MOVIE_BASE_URL', '"https://api.themoviedb.org/3/"'
+        }
+    }
+
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayout"
+    implementation "com.google.android.material:material:$support_library_version"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    //COROUTINES FOR ASYNCRON SERVICE PROCESS
+    implementation "androidx.core:core-ktx:$coroutines_version"
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.0'
+    //RETROFIT
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    //MOSHI FOR JSON DATA
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    //VIEW MODEL LIVE DATA
+    implementation "androidx.lifecycle:lifecycle-extensions:$current_version"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$current_version"
+    def nav_version = "2.1.0-rc01"
+    //NAVIGATION
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    //GLIDE
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    //GSON
+    implementation 'com.google.code.gson:gson:2.8.5'
+    //OKHTTP
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+    //RECYCLER VIEW
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    //TEST
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-all:1.10.19'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}

@@ -1,0 +1,15 @@
+<resources>
+
+    <string name="app_name">Movie</string>
+    <!--MENU/TOOL BAR-->
+    <string name="action_no_filter">Filtreyi Kaldır</string>
+    <string name="action_most_star">En çok yıldıza göre</string>
+    <string name="action_least_star">En az yıldıza göre</string>
+    <string name="action_now_play">Now Playing</string>
+    <string name="action_top_rated">Top Rated</string>
+    <string name="action_up_coming">Up Coming</string>
+    <string name="action_detail">Movie Detail</string>
+    <!--ERROR-->
+    <string name="error_text">Hata Oluştu</string>
+
+</resources>

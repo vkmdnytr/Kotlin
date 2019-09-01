@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background_dark">#333030</color>
+    <color name="toolBar">#FF222122</color>
+    <color name="yellow">#f8a700</color>
+    <color name="dark_yellow">#f78b00</color>
+    <color name="colorPrimary">#FF222122</color>
+    <color name="colorPrimaryDark">#FF222122</color>
+    <color name="colorPrimaryLight">#C8E6C9</color>
+    <color name="colorAccent">#FF9800</color>
+    <color name="colorPrimaryText">#FF9800</color>
+    <color name="colorSecondaryText">#2196F3</color>
+    <color name="colorIcons">#03A9F4</color>
+    <color name="colorDivider">#BDBDBD</color>
+    <color name="black_effective">#FFEB3B</color>
+</resources>

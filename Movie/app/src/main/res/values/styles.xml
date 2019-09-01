@@ -1,0 +1,17 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="MovieTheme" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimaryText</item>
+        <item name="android:colorBackground">@color/background_dark</item>
+        <item name="android:textColorSecondary">@color/colorSecondaryText</item>
+    </style>
+    <style name="MovieToolBar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/background_dark</item>
+    </style>
+
+</resources>
